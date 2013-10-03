@@ -46,10 +46,19 @@ module Tilt
     #
     # Returns the compiled stylesheet with CSS syntax.
     def evaluate(scope, locals, &block)
-      data = Stylus::Helpers::AssetMixin.prepend_import_directive(scope, self.data)
       @output ||= Stylus.compile(data, options)
     end
   end
+
+
+  class StylusRailsTemplate < StylusTemplate
+    def evaluate(context, locals, &block)
+      #self.data = Stylus::Helpers::AssetMixin.prepend_import_directive(scope, self.data)
+      data = build_mixin_stuff(context) + data
+      super
+    end
+  end
+
 end
 
-Tilt.register Tilt::StylusTemplate, 'styl'
+Tilt.register Tilt::StylusRailsTemplate, 'styl'
