@@ -50,15 +50,6 @@ module Tilt
     end
   end
 
-
-  class StylusRailsTemplate < StylusTemplate
-    def evaluate(context, locals, &block)
-      #self.data = Stylus::Helpers::AssetMixin.prepend_import_directive(scope, self.data)
-      data = build_mixin_stuff(context) + data
-      super
-    end
-  end
-
 end
 
-Tilt.register Tilt::StylusRailsTemplate, 'styl'
+Tilt.register Tilt::StylusTemplate, 'styl'
