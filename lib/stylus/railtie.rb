@@ -1,6 +1,6 @@
 require 'stylus'
 require 'stylus/sprockets'
-require 'stylus/tilt_rails'
+require 'stylus/rails_tilt'
 
 module Stylus
   # Internal: The Railtie responsible for integrate the Stylus library with
@@ -31,7 +31,6 @@ module Stylus
     #
     # Returns nothing.
     config.assets.configure do |env|
-      puts env.inspect
       Stylus.setup(env, config.assets)
     end
   end

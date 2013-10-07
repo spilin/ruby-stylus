@@ -1,4 +1,7 @@
 require 'spec_helper'
+require 'rails'
+require 'rails/generators/test_case'
+require 'support/generators/test_case'
 require 'rails/generators/stylus/assets/assets_generator'
 
 describe Stylus::Generators::AssetsGenerator do

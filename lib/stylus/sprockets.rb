@@ -1,6 +1,5 @@
 require 'stylus'
 require 'stylus/tilt'
-require 'stylus/mixin_body'
 require 'stylus/import_processor'
 # Public: The setup logic to configure both Stylus and Sprockets on any
 # kind of application - Rails, Sinatra or Rack.
@@ -38,11 +37,16 @@ module Stylus
     Stylus.debug = options.fetch(:debug, Stylus.debug)
     Stylus.compress = options.fetch(:compress, Stylus.compress)
 
-    #if defined?(::Rails)
-    #  environment.register_engine('.styl', Tilt::StylusRailsTemplate)
-    #else
-      environment.register_engine('.styl', Tilt::StylusTemplate)
-    #end
+    environment.register_engine('.styl', template_handler)
     environment.register_preprocessor('text/css', Stylus::ImportProcessor)
+  end
+
+  # Internal: Returns Stylus Tilt engine that will be used for Sprockets configuration.
+  def self.template_handler
+    if defined?(::Rails::VERSION)
+      Stylus::Rails::StylusTemplate
+    else
+      Tilt::StylusTemplate
+    end
   end
 end
